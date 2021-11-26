@@ -1,0 +1,62 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drupal
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: drupal        
+    spec:
+      initContainers:
+      - name: init-sites-volume
+        image: drupal:8.6
+        command:
+        - /bin/bash
+        - -c
+        args: ['cp -r /var/www/html/sites/ /data/; chwon www-data:www-data /data/ -R']
+        volumeMounts:
+        - mountPath: /data
+          name: vol-drupal
+      containers:
+      - name: drupal
+        image: drupal:8.6
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          mountPath: /var/www/html/modules
+          name: vol-drupal
+          subPath: modules
+        volumeMounts:
+          mountPath: /var/www/html/profiles
+          name: vol-drupal
+          subPath: profiles        
+        volumeMounts:
+          mountPath: /var/www/html/sites
+          name: vol-drupal
+          subPath: sites  
+        volumeMounts:      
+          mountPath: /var/www/html/themes
+          name: vol-drupal
+          subPath: themes  
+      volumes:
+        - name: vol-drupal
+          persistentVolumeClaim:
+            claimName: drupal-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drupal-service
+spec:
+  selector:
+    app: drupal
+  ports:
+    - name: drupal
+      protocol: HTTP
+      port: 80
+      nodePort: 30095
