@@ -92,7 +92,7 @@ spec:
 EOF
 ```
 
-5. Create Deployment and Service for Drupal and MySQL
+5. Create Deployment and Service for MySQL
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -101,8 +101,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: drupal-mysql
+  labels:
+    app: drupal-mysql
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: drupal-mysql
   template:
     metadata:
       labels:
@@ -115,11 +120,11 @@ spec:
         ports:
         - containerPort: 3306
         env:
-        - name: MYSQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: drupal-mysql-secret
-              key: MYSQL_USER
+        # - name: MYSQL_USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: drupal-mysql-secret
+        #       key: MYSQL_USER
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -131,9 +136,9 @@ spec:
               name: drupal-mysql-secret
               key: MYSQL_DATABASE
         volumeMounts:
-          mountPath: /var/lib/mysql
-          name: vol-drupal
-          subPath: dbdata      
+          - mountPath: /var/lib/mysql
+            name: vol-drupal
+            subPath: dbdata      
       volumes:
         - name: vol-drupal
           persistentVolumeClaim:
@@ -151,9 +156,11 @@ spec:
     - name: drupal-mysql
       protocol: TCP
       port: 3306
-      targetPort: 3306
+      targetPort: 3306       
 EOF
 ```
+
+6. Create Deployment and Service for Drupal
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -162,7 +169,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: drupal
+  labels:
+    app: drupal
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drupal
   replicas: 1
   template:
     metadata:
@@ -175,7 +188,7 @@ spec:
         command:
         - /bin/bash
         - -c
-        args: ['cp -r /var/www/html/sites/ /data/; chwon www-data:www-data /data/ -R']
+        args: ['cp -r /var/www/html/sites/ /data/; chown www-data:www-data /data/ -R']
         volumeMounts:
         - mountPath: /data
           name: vol-drupal
@@ -186,21 +199,18 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-          mountPath: /var/www/html/modules
-          name: vol-drupal
-          subPath: modules
-        volumeMounts:
-          mountPath: /var/www/html/profiles
-          name: vol-drupal
-          subPath: profiles        
-        volumeMounts:
-          mountPath: /var/www/html/sites
-          name: vol-drupal
-          subPath: sites  
-        volumeMounts:      
-          mountPath: /var/www/html/themes
-          name: vol-drupal
-          subPath: themes  
+          - mountPath: /var/www/html/modules
+            name: vol-drupal
+            subPath: modules
+          - mountPath: /var/www/html/profiles
+            name: vol-drupal
+            subPath: profiles        
+          - mountPath: /var/www/html/sites
+            name: vol-drupal
+            subPath: sites  
+          - mountPath: /var/www/html/themes
+            name: vol-drupal
+            subPath: themes  
       volumes:
         - name: vol-drupal
           persistentVolumeClaim:
@@ -213,9 +223,10 @@ metadata:
 spec:
   selector:
     app: drupal
+  type: NodePort
   ports:
     - name: drupal
-      protocol: HTTP
+      protocol: TCP
       port: 80
       nodePort: 30095
 EOF

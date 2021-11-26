@@ -3,8 +3,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: drupal-mysql
+  labels:
+    app: drupal-mysql
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: drupal-mysql
   template:
     metadata:
       labels:
@@ -17,11 +22,11 @@ spec:
         ports:
         - containerPort: 3306
         env:
-        - name: MYSQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: drupal-mysql-secret
-              key: MYSQL_USER
+        # - name: MYSQL_USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: drupal-mysql-secret
+        #       key: MYSQL_USER
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -33,9 +38,9 @@ spec:
               name: drupal-mysql-secret
               key: MYSQL_DATABASE
         volumeMounts:
-          mountPath: /var/lib/mysql
-          name: vol-drupal
-          subPath: dbdata      
+          - mountPath: /var/lib/mysql
+            name: vol-drupal
+            subPath: dbdata      
       volumes:
         - name: vol-drupal
           persistentVolumeClaim:
@@ -53,7 +58,4 @@ spec:
     - name: drupal-mysql
       protocol: TCP
       port: 3306
-      targetPort: 3306
-
-        
-       
+      targetPort: 3306       
