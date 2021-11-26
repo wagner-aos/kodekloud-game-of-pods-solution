@@ -234,7 +234,7 @@ spec:
 EOF
 ```
 
-7. Now you can access Drupal at <ip>:30095
+7. Now you can access Drupal at **NODE_IP**:30095
 
 
 
