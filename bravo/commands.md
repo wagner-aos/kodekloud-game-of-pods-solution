@@ -1,4 +1,6 @@
+### Bravo
 
+![](images/bravo-architecture.png)
 
 1. Creating host path folders on worker node
 
