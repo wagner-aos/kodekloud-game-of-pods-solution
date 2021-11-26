@@ -3,19 +3,24 @@ kind: PersistentVolumeClaim
 metadata:
   name: drupal-pvc
 spec:
+  selector: 
+    matchLabels: 
+      name: drupal-pv
   storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
-
 ---      
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: drupal-mysql-pvc
 spec:
+  selector: 
+    matchLabels: 
+      name: drupal-mysql-pv
   storageClassName: manual
   accessModes:
     - ReadWriteOnce

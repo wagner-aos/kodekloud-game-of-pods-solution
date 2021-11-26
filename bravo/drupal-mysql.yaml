@@ -40,7 +40,6 @@ spec:
         - name: vol-drupal
           persistentVolumeClaim:
             claimName: drupal-mysql-pvc
-
 ---
 apiVersion: v1
 kind: Service
