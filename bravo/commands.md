@@ -1,6 +1,6 @@
 
 
-1. Creating host path on worker node
+1. Creating host path folders on worker node
 
 ```sh
 	ssh node01
@@ -11,7 +11,9 @@
 
 2. Return to control plane
 
-```sh exit ```
+```sh 
+  exit 
+```
 
 3. Create secret
 
@@ -231,6 +233,8 @@ spec:
       nodePort: 30095
 EOF
 ```
+
+7. Now you can access Drupal at <ip>:30095
 
 
 
