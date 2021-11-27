@@ -1,5 +1,5 @@
 
-### Pento
+## Pento
 
 Troubleshooting Nodes and Deploying File Server according to below architecture.
 
@@ -107,3 +107,5 @@ spec:
       nodePort: 31200
 EOF
 ```
+
+[Back](../readme.md)
