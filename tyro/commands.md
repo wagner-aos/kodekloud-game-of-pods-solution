@@ -127,11 +127,11 @@ status:
   loadBalancer: {}
 EOF
 ```
-11. Verify if the service was ok.
+11. Verify if the service is ok.
 
 ```sh
     kubectl get svc -n development
 ```
-6. Finnaly you can access Jekyll at **NODE_IP**:30097
+12. Finnaly you can access Jekyll at **NODE_IP**:30097
 
 [Back](../readme.md)
