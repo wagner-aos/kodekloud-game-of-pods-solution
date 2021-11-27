@@ -9,18 +9,18 @@ The Kingdom of Redis Islands needs reinforcement! Build a highly available Redis
 1. Creating host path folders on worker node.
 
 ```sh
-	ssh node01
+ssh node01
 
-	mkdir /redis01 && \
-	mkdir /redis02 && \
-  mkdir /redis03 && \
-  mkdir /redis04 && \
-  mkdir /redis05 && \
-  mkdir /redis06
+mkdir /redis01 && \
+mkdir /redis02 && \
+mkdir /redis03 && \
+mkdir /redis04 && \
+mkdir /redis05 && \
+mkdir /redis06
 
-  ls -ltr / | grep redis
+ls -ltr / | grep redis
 
-  logout
+logout
 ```
 
 2. Create the volumes for each node of the redis cluster.
@@ -203,7 +203,7 @@ EOF
 c. Now watch if the pods are creating and ok.
 
 ```sh
-    kubectl get po
+    watch kubectl get po
 ```
 
 4. Now create the service in order to expose pods.
@@ -228,7 +228,7 @@ spec:
     app: redis-cluster
 EOF
 ```
-5. Finally, connect to service to create the cluster.
+5. Finally, connect to Redis to create the redis-cluster.
 
 ```sh
   kubectl exec -it redis-cluster-0 -- redis-cli \

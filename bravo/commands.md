@@ -11,15 +11,13 @@ Deploy the below architecture for Drupal CMS.
 
 	mkdir /drupal-data && \
 	mkdir /drupal-mysql-data
+
+  ls -ltr
+
+  logout
 ```
 
-2. Return to control plane
-
-```sh 
-  exit 
-```
-
-3. Create secret
+2. Create secret for MySQL
 
 ```sh	
 	kubectl create secret generic drupal-mysql-secret \
@@ -28,7 +26,7 @@ Deploy the below architecture for Drupal CMS.
 	--from-literal=MYSQL_DATABASE=drupal-database	
 ```
 
-4. Create PV and PVC for Drupal and MySQL
+3. Create PV and PVC for Drupal and MySQL
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -98,7 +96,7 @@ spec:
 EOF
 ```
 
-5. Create Deployment and Service for MySQL
+4. Create Deployment and Service for MySQL
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -166,7 +164,7 @@ spec:
 EOF
 ```
 
-6. Create Deployment and Service for Drupal
+5. Create Deployment and Service for Drupal
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -238,7 +236,7 @@ spec:
 EOF
 ```
 
-7. Now you can access Drupal at **NODE_IP**:30095
+6. Now you can access Drupal at **NODE_IP**:30095
 
 [Back](../readme.md)
 
