@@ -1,11 +1,11 @@
 
 ### Pento
 
-Troubleshooting Nodes and Deploying File Server
+Troubleshooting Nodes and Deploying File Server according to below architecture.
 
 ![](images/pento-architecture.png)
 
-1. The Game of Pods cluster is Broken! Troubleshoot, fix the cluster issues and then deploy the below architecture to unlock our Image Gallery!
+1. The Game of Pods cluster is Broken! Troubleshoot, fix the cluster issues and then deploy the above architecture to unlock our Image Gallery!
 
 Master node: coredns deployment has image: 'k8s.gcr.io/coredns:1.6.7'
 Fix kube-apiserver. Make sure its running and healthy.

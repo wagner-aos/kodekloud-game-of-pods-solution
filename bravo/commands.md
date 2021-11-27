@@ -1,5 +1,7 @@
 ### Bravo
 
+Deploy the below architecture for Drupal CMS.
+
 ![](images/bravo-architecture.png)
 
 1. Creating host path folders on worker node
@@ -22,7 +24,7 @@
 ```sh	
 	kubectl create secret generic drupal-mysql-secret \
 	--from-literal=MYSQL_USER=root \
-	--from-literal=MYSQL_ROOT_PASSWORD=root-password \
+	--from-literal=MYSQL_ROOT_PASSWORD=root_password \
 	--from-literal=MYSQL_DATABASE=drupal-database	
 ```
 
@@ -124,11 +126,11 @@ spec:
         ports:
         - containerPort: 3306
         env:
-        # - name: MYSQL_USER
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: drupal-mysql-secret
-        #       key: MYSQL_USER
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: drupal-mysql-secret
+              key: MYSQL_USER
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
