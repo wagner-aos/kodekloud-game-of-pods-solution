@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jekyll
+  labels:
+    run: jekyll
+  namespace: development
+spec:
+  initContainers:
+    name: copy-jekyll-site
+    image: kodekloud/jekyll
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+    - mountPath: /site
+      name: site
+  containers:
+    name: copy-jekyll-site
+    image: kodekloud/jekyll-serve
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+    - mountPath: /site
+      name: site
+  volumes:
+  - name: site
+    persistentVolumeClaim:
+      claimName: jekyll-site

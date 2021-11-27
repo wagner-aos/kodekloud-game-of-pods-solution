@@ -7,14 +7,14 @@ Deploy the below architecture for Drupal CMS.
 1. Creating host path folders on worker node
 
 ```sh
-	ssh node01
+    ssh node01
 
-	mkdir /drupal-data && \
-	mkdir /drupal-mysql-data
+    mkdir /drupal-data && \
+    mkdir /drupal-mysql-data
 
-  ls -ltr
+    ls -ltr
 
-  logout
+    logout
 ```
 
 2. Create secret for MySQL
@@ -236,7 +236,7 @@ spec:
 EOF
 ```
 
-6. Now you can access Drupal at **NODE_IP**:30095
+6. Finally, you can access Drupal at **NODE_IP**:30095
 
 [Back](../readme.md)
 
