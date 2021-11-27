@@ -63,7 +63,7 @@ EOF
 ```sh
     k get pvc -n development
 ```
-8. Then, Create the POD Jekyll.
+8. Then, create the POD Jekyll.
 
 ```sh
 cat <<EOF | kubectl create -f -
@@ -132,6 +132,6 @@ EOF
 ```sh
     kubectl get svc -n development
 ```
-12. Finnaly you can access Jekyll at **NODE_IP**:30097
+12. Finally you can access Jekyll at **NODE_IP**:30097
 
 [Back](../readme.md)
