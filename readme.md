@@ -1,5 +1,9 @@
 ### Kode Kloud - Game of PODS Solutions
 
+In my saga of becoming an expert in cloud architecture, infrastructure and application security, I found it relevant to share the solution of a lab I did with some workload scenarios on the Kubernetes cluster. Thank you KodeKloud and Mumshad Mannambeth. 
+
+You can find me at: https://www.linkedin.com/in/wagneralvesoliveira/ 
+
 ![](images/game-of-pods.png)
 
 **Challenge Solutions**
